@@ -1,27 +1,32 @@
-/**
- *  GroveStreams
- */
-definition(
-    name: "GroveStreams",
-    namespace: "CyborgMaster",
-    author: "Jeremy Mickelson",
-    description: "Log to GroveStreams",
-    category: "My Apps",
-    iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
-    iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
-    iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+definition(name: "GroveStreams",
+           namespace: "CyborgMaster",
+           author: "Jeremy Mickelson",
+           description: "Log to GroveStreams",
+           category: "My Apps",
+           iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+           iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
+           iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
 
 preferences {
     section("Log devices...") {
-        input "temperatures", "capability.temperatureMeasurement", title: "Temperatures", required:false, multiple: true
-        input "humidities", "capability.relativeHumidityMeasurement", title: "Humidities", required:false, multiple: true
-        input "thermostats", "capability.thermostat", title: "Thermostats", required: false, multiple: true
-        input "contacts", "capability.contactSensor", title: "Doors open/close", required: false, multiple: true
-        input "accelerations", "capability.accelerationSensor", title: "Accelerations", required: false, multiple: true
-        input "motions", "capability.motionSensor", title: "Motions", required: false, multiple: true
-        input "presence", "capability.presenceSensor", title: "Presence", required: false, multiple: true
-        input "switches", "capability.switch", title: "Switches", required: false, multiple: true
-        input "batteries", "capability.battery", title: "Batteries", required: false, multiple: true
+        input("temperatures", "capability.temperatureMeasurement",
+              title: "Temperatures", required:false, multiple: true)
+        input("humidities", "capability.relativeHumidityMeasurement",
+              title: "Humidities", required:false, multiple: true)
+        input("thermostats", "capability.thermostat",
+              title: "Thermostats", required: false, multiple: true)
+        input("contacts", "capability.contactSensor",
+              title: "Doors open/close", required: false, multiple: true)
+        input("accelerations", "capability.accelerationSensor",
+              title: "Accelerations", required: false, multiple: true)
+        input("motions", "capability.motionSensor",
+              title: "Motions", required: false, multiple: true)
+        input("presence", "capability.presenceSensor",
+              title: "Presence", required: false, multiple: true)
+        input("switches", "capability.switch",
+              title: "Switches", required: false, multiple: true)
+        input("batteries", "capability.battery",
+              title: "Batteries", required: false, multiple: true)
     }
 
     section ("GroveStreams Feed PUT API key...") {
@@ -120,12 +125,12 @@ def processQueue() {
             try {
                 httpPutJson(["uri": url, "header": header, "body": atomicState.queue]) {
                     response ->
-                    if (response.status != 200 ) {
-                        log.debug "GroveStreams logging failed, status = ${response.status}"
-                    } else {
-                        log.debug "GroveStreams accepted event(s)"
-                        atomicState.queue = []
-                    }
+                        if (response.status != 200 ) {
+                            log.debug "GroveStreams logging failed, status = ${response.status}"
+                        } else {
+                            log.debug "GroveStreams accepted event(s)"
+                            atomicState.queue = []
+                        }
                 }
             } catch(e) {
                 def errorInfo = "Error sending value: ${e}"
