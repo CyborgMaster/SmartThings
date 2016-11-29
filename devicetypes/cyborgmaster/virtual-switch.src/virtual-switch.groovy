@@ -2,8 +2,9 @@ metadata {
   definition (name: "Virtual Switch",
               namespace: "CyborgMaster",
               author: "Jeremy Mickelson") {
-    capability "Switch"
     capability "Actuator"
+    capability "Sensor"
+    capability "Switch"
   }
 
   tiles {
