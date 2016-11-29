@@ -3,7 +3,6 @@ metadata {
               namespace: "CyborgMaster",
               author: "Jeremy Mickelson") {
     capability "Actuator"
-    // capability "Sensor"
     capability "Switch"
   }
 
@@ -20,18 +19,14 @@ metadata {
 }
 
 def parse(String description) {}
-// def parse(String description) {
-//   def pair = description.split(":")
-//   createEvent(name: pair[0].trim(), value: pair[1].trim())
-// }
 
 def on() {
-  log.debug "$version on()"
+  log.debug "${device.getName()} on()"
   sendEvent(name: "switch", value: "on", isStateChange: true)
 }
 
 def off() {
-  log.debug "$version off()"
+  log.debug "${device.getName()} off()"
   sendEvent(name: "switch", value: "off", isStateChange: true)
 }
 
