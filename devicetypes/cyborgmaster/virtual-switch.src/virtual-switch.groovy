@@ -3,26 +3,27 @@ metadata {
               namespace: "CyborgMaster",
               author: "Jeremy Mickelson") {
     capability "Actuator"
-    capability "Sensor"
+    // capability "Sensor"
     capability "Switch"
   }
 
   tiles {
     standardTile("on", "device.switch", decoration: "flat") {
-      state "default", label: 'On', action: "onPhysical", backgroundColor: "#ffffff"
+      state "default", label: 'On', action: "on", backgroundColor: "#ffffff"
     }
     standardTile("off", "device.switch", decoration: "flat") {
-      state "default", label: 'Off', action: "offPhysical", backgroundColor: "#ffffff"
+      state "default", label: 'Off', action: "off", backgroundColor: "#ffffff"
     }
     main "on"
     details(["on","off"])
   }
 }
 
-def parse(String description) {
-  def pair = description.split(":")
-  createEvent(name: pair[0].trim(), value: pair[1].trim())
-}
+def parse(String description) {}
+// def parse(String description) {
+//   def pair = description.split(":")
+//   createEvent(name: pair[0].trim(), value: pair[1].trim())
+// }
 
 def on() {
   log.debug "$version on()"
